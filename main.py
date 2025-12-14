@@ -1,33 +1,28 @@
-from utils.passenger import Passenger
 from utils.system import System
 
 
 def main() -> None:
-    system = System()
+    sys = System()
 
-    # Case 1: Rush Hour, Adult, No Card
-    # Ticket time: "08:00", Age: 30, Card: None, RoundTrip: False
-    p1 = Passenger(30, None)
-    price1 = system.calculate_price("08:00", p1.age, p1.rail_card_type, False)
-    print(f"Rush Hour Adult: {price1} EUR (Expected: 100.0)")
+    # 1. Test Refactored Pricing (Should still work same as Lab 4)
+    price = sys.calculate_price("08:00", 30, None, False)
+    print(f"Standard Rush Price: {price} (Expected: 100.0)")
 
-    # Case 2: Saver Time, Adult, No Card
-    # Ticket time: "11:00", Age: 30, Card: None, RoundTrip: False
-    p2 = Passenger(30, None)
-    price2 = system.calculate_price("11:00", p2.age, p2.rail_card_type, False)
-    print(f"Saver Adult:     {price2} EUR (Expected: 95.0)")
+    # 2. Test Coupon Feature
+    price_coupon = sys.calculate_price("08:00", 30, None, False, coupon_code="SUMMER20")
+    print(f"Price with SUMMER20 Coupon: {price_coupon} (Expected: 80.0)")
 
-    # Case 3: Saver Time, Senior Card
-    # Ticket time: "11:00", Age: 65, Card: "Senior", RoundTrip: False
-    p3 = Passenger(65, "Senior")
-    price3 = system.calculate_price("11:00", p3.age, p3.rail_card_type, False)
-    print(f"Saver Senior:    {price3} EUR (Expected: 62.7)")
+    # 3. Test Profile Creation
+    user = sys.create_profile("u001", "John Doe", "john@example.com")
+    print(f"Profile Created: {user}")
 
-    # Case 4: Rush Hour, Child with Family Card
-    # Ticket time: "08:00", Age: 10, Card: "Family", RoundTrip: False
-    p4 = Passenger(10, "Family")
-    price4 = system.calculate_price("08:00", p4.age, p4.rail_card_type, False)
-    print(f"Rush Hour Child: {price4} EUR (Expected: 50.0)")
+    # 4. Test Reservation
+    res = sys.create_reservation("u001", "T1", price_coupon)
+    print(f"Reservation Created: {res}")
+
+    # 5. Cancel Reservation
+    sys.cancel_reservation(res.res_id)
+    print(f"Reservation Status after Cancel: {res.status}")
 
 
 if __name__ == "__main__":
