@@ -1,0 +1,36 @@
+Feature: Search for Trains
+  As a passenger
+  I want to search for train connections
+  So that I can plan my journey
+
+  Scenario: Successful one-way search
+    Given I am on the RailWise homepage
+    When I select "One-way" trip type
+    And I enter "London" as the origin
+    And I enter "Paris" as the destination
+    And I click the "Search" button
+    Then I should see a list of available trains
+
+
+Feature: Dynamic Time-Based Pricing
+  As a system
+  I want to adjust ticket prices based on time of day
+  So that I can offer Saver discounts during off-peak hours
+
+  Scenario: Apply Saver discount for off-peak travel
+    Given the base ticket price is 100.00 EUR
+    When the user selects a train departing at "10:30"
+    Then the system should identify the time as "Off-peak"
+    And the final ticket price should be 95.00 EUR
+
+
+Feature: Child and Family Discounts
+  As a parent
+  I want to apply a Family Rail Card
+  So that I can get a discount for my child's ticket
+
+  Scenario: Child traveling with Family Rail Card
+    Given the passenger is a "Child" under 16
+    And the passenger holds a "Family Rail Card"
+    When the ticket price is calculated
+    Then a 50% discount should be applied to the ticket
