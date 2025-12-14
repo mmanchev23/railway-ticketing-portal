@@ -1,5 +1,13 @@
+DISCOUNT_SENIOR = 0.66
+DISCOUNT_FAMILY_CHILD = 0.50
+DISCOUNT_CHILD_STD = 0.90
+
+
 class Passenger:
     def __init__(self, age: int, rail_card_type: str = None) -> None:
+        if age < 0:
+            raise ValueError("Age cannot be negative")  # (DEF-003)
+
         self.age = age
         self.rail_card_type = rail_card_type
 
@@ -12,12 +20,12 @@ class Passenger:
             - No Family Card: 10% discount (0.90 multiplier)
         """
         if self.rail_card_type == "Senior" and self.age >= 60:
-            return 0.66
+            return DISCOUNT_SENIOR
 
         if self.age < 16:
             if self.rail_card_type == "Family":
-                return 0.50
+                return DISCOUNT_FAMILY_CHILD
             else:
-                return 0.90
+                return DISCOUNT_CHILD_STD
 
         return 1.0

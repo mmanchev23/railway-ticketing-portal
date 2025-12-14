@@ -1,11 +1,22 @@
 from datetime import datetime, time
 
 
+RUSH_HOUR_START_1 = time(9, 30)
+RUSH_HOUR_START_2 = time(16, 0)
+RUSH_HOUR_END_2 = time(19, 30)
+DISCOUNT_SAVER = 0.95
+
+
 class Ticket:
     def __init__(self, base_price: float, departure_time: str) -> None:
         self.base_price = base_price
-        self.departure_time = departure_time
-        self.time_obj = datetime.strptime(departure_time, "%H:%M").time()
+
+        try:
+            self.time_obj = datetime.strptime(
+                departure_time, "%H:%M"
+            ).time()  # (DEF-002)
+        except ValueError:
+            raise ValueError("Time must be in HH:MM format")
 
     def get_time_multiplier(self) -> float:
         """
@@ -15,13 +26,9 @@ class Ticket:
         """
         t = self.time_obj
 
-        morning_rush_end = time(9, 30)
-        afternoon_rush_start = time(16, 0)
-        afternoon_rush_end = time(19, 30)
-
-        if t < morning_rush_end:
+        if t < RUSH_HOUR_START_1:
             return 1.0
-        elif afternoon_rush_start <= t <= afternoon_rush_end:
+        elif RUSH_HOUR_START_2 <= t <= RUSH_HOUR_END_2:
             return 1.0
         else:
-            return 0.95
+            return DISCOUNT_SAVER
