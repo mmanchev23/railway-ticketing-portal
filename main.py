@@ -1,34 +1,33 @@
 from utils.passenger import Passenger
 from utils.system import System
-from utils.ticket import Ticket
 
 
 def main() -> None:
     system = System()
 
     # Case 1: Rush Hour, Adult, No Card
-    # Expected: 100.0
-    t1 = Ticket(100.0, "08:00")
+    # Ticket time: "08:00", Age: 30, Card: None, RoundTrip: False
     p1 = Passenger(30, None)
-    print(f"Rush Hour Adult: {system.calculate_final_price(t1, p1)}")
+    price1 = system.calculate_price("08:00", p1.age, p1.rail_card_type, False)
+    print(f"Rush Hour Adult: {price1} EUR (Expected: 100.0)")
 
     # Case 2: Saver Time, Adult, No Card
-    # Expected: 95.0
-    t2 = Ticket(100.0, "11:00")
+    # Ticket time: "11:00", Age: 30, Card: None, RoundTrip: False
     p2 = Passenger(30, None)
-    print(f"Saver Adult: {system.calculate_final_price(t2, p2)}")
+    price2 = system.calculate_price("11:00", p2.age, p2.rail_card_type, False)
+    print(f"Saver Adult:     {price2} EUR (Expected: 95.0)")
 
     # Case 3: Saver Time, Senior Card
-    # Expected: 95 * 0.66 = 62.7
-    t_senior = Ticket(100.0, "11:00")
-    p_senior = Passenger(65, "Senior")
-    print(f"Saver Senior: {system.calculate_final_price(t_senior, p_senior)}")
+    # Ticket time: "11:00", Age: 65, Card: "Senior", RoundTrip: False
+    p3 = Passenger(65, "Senior")
+    price3 = system.calculate_price("11:00", p3.age, p3.rail_card_type, False)
+    print(f"Saver Senior:    {price3} EUR (Expected: 62.7)")
 
     # Case 4: Rush Hour, Child with Family Card
-    # Expected: 100 * 0.5 = 50.0
-    t_child = Ticket(100.0, "08:00")
-    p_child = Passenger(10, "Family")
-    print(f"Rush Hour Child (Family): {system.calculate_final_price(t_child, p_child)}")
+    # Ticket time: "08:00", Age: 10, Card: "Family", RoundTrip: False
+    p4 = Passenger(10, "Family")
+    price4 = system.calculate_price("08:00", p4.age, p4.rail_card_type, False)
+    print(f"Rush Hour Child: {price4} EUR (Expected: 50.0)")
 
 
 if __name__ == "__main__":
