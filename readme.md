@@ -51,6 +51,8 @@ Below is an explanation of the files and directories in this repository.
 ### **Root Directory**
 
   * **`main.py`**: The entry point for manual verification of the system. Runs a quick "Smoke Test" of the pricing logic.
+  * **`tests_lab4.py`**: Python script implementing the White-Box tests using `unittest`.
+  * **`tests_lab6.py`**: Python script implementing Black-Box tests (BVA, ECP, State Transition).
   * **`utils/`**: The source code package containing the system logic.
       * `system.py`: The core engine containing `calculate_price`, `search_trains`, and booking logic.
       * `passenger.py`: Defines passenger attributes and logic for age/card discounts.
@@ -71,11 +73,9 @@ Below is an explanation of the files and directories in this repository.
         * `cfg.png` / `cfg.drawio`: Visual Control Flow Graph of the `calculate_price` function.
         * `white-box.docx`: Documentation of test paths for SC, DC, and CC coverage.
     * `lab4/` (Unit Testing)
-        * `tests.py`: Python script implementing the White-Box tests using `unittest`.
     * `lab5/` (Refactoring)
         * `refactoring.docx`: Notes on code improvements and new features added.
     * `lab6/` (Functional Testing)
-        * `tests.py`: Python script implementing Black-Box tests (BVA, ECP, State Transition).
         * `rtm.docx`: Requirement Traceability Matrix mapping FRs to Test Cases.
         * `ftd.docx`: Functional Test Description document.
     * `lab7/` (Final Plan)
@@ -88,13 +88,13 @@ To execute the tests, navigate to the root directory and run the specific test m
 **1. Run Unit Tests (White-Box):**
 
 ```bash
-python -m unittest labs/lab4/tests.py
+python tests_lab4.py
 ```
 
 **2. Run Functional Tests (Black-Box):**
 
 ```bash
-python -m unittest labs/lab6/tests.py
+python tests_lab6.py
 ```
 
 **3. Run Manual Verification:**
