@@ -85,17 +85,13 @@ class System:
         price = BASE_FARE
         t = datetime.strptime(dep_time_str, "%H:%M").time()
 
-        # 1. Time Multiplier
         price *= self._get_time_multiplier(t)
 
-        # 2. Passenger Multiplier
         price *= self._get_passenger_multiplier(age, card_type)
 
-        # 3. Round Trip
         if is_round_trip:
             price *= 2
 
-        # 4. Coupon Logic (New Feature)
         if coupon_code and coupon_code in VALID_COUPONS:
             price *= VALID_COUPONS[coupon_code]
 
